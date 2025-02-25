@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo TD Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./styles/reset.css">
+    <link rel="stylesheet" href="./styles/style.css">
+</head>
+<body>
+    <nav>
+            <img class="nav__image" src="./assets/logo.svg" alt="logo">
+            <ul class="nav__links">
+                <li><a class="button button--empty" href="#">Log Out</a></li>
+                <li><a class="button button--full" href="#">Sign In</a></li>
+            </ul>
+        
+    </nav>
+    <main>
+        <section class="dashboard">
+            <div class="dashboard__container">
+                    <div class="dashboard__card dashboard__card--add">
+                        <div class="dashboard__card__container dashboard__card__container--add">
+                            <h2>Add a site</h2>
+                            <a class="icon" href="" >
+                                <img class="icon__image" src="./assets/plus.svg" alt="plus">
+                            </a>
+                        </div>
+                    </div>
+            </div>
+        </section>
+    </main>
+</body>
+<script>
+       const websiteData={
+     "websites": [
+       {
+         "name": "Magic Flamingo",
+         "url": "https://magicflamingo.ll-01.thedock.space/",
+         "image": "./assets/magic_flamingo.webp"
+       },
+       {
+         "name": "Botanico",
+         "url": "https://botanico.se/",
+         "image": "./assets/botanico.webp"
+
+       },
+       {
+         "name": "Sunshine Restaurant Group",
+         "url": "https://sunshinerestaurantgroup.se/",
+         "image": "./assets/sunshine.webp"
+       },
+       {
+         "name": "Brasserie Voyage",
+         "url": "https://brasserievoyage.se/preview02/",
+         "image": "./assets/brasserie_voyage.webp"
+       }
+     
+       
+     ]
+    }
+    function renderWebsites(data) {
+            const list = document.querySelector(".dashboard__container");
+            const addCard = document.querySelector(".dashboard__card--add"); 
+
+            addCard.remove();
+
+            data.websites.forEach(site => {
+                const listItem = document.createElement("div");
+                listItem.classList.add("dashboard__card");
+                listItem.innerHTML = `
+                    <a class="dashboard__card__container" href="${site.url}" target="_blank">
+                        <div class="dashboard__card__header">
+                            <h2>${site.name}</h2>
+                            <div class="icon">
+                                <img class="icon__image" src="./assets/arrow.svg" alt="arrow">
+                            </div>
+                        </div>
+                        <img class="dashboard__card__image" src="${site.image}" alt="${site.name}">
+                    </a>
+                `;
+                list.appendChild(listItem);
+            });
+
+            if (data.websites.length === 0) {
+                const listItem = document.createElement("div");
+                listItem.classList.add("dashboard__error_card");
+                listItem.innerHTML = `
+                    <div class="dashboard__card__container">
+                        <h2>No websites found</h2>
+                    </div>
+                `;
+                list.appendChild(listItem);
+            }
+
+            list.appendChild(addCard);
+        }
+
+        renderWebsites(websiteData);
+    /*
+        fetch('./json/websites.json')
+    .then(response => response.json())
+    .then(data => {
+        const list = document.querySelector(".dashboard__container");
+        const addCard = document.querySelector(".dashboard__card--add"); // Store the "Add a site" card
+
+        // Remove "Add a site" card temporarily
+        addCard.remove();
+
+        // Add websites dynamically
+        data.websites.forEach(site => {
+            const listItem = document.createElement("li");
+            listItem.classList.add("dashboard__card");
+            listItem.innerHTML = `
+                <a class="dashboard__card__container" href="${site.url}">
+                    <div class="dashboard__card__header">
+                        <h2>${site.name}</h2>
+                        <div class="icon">
+                            <img class="icon__image" src="./assets/arrow.svg" alt="arrow">
+                        </div>
+                    </div>
+                    <img class="dashboard__card__image" loading="lazy" width="800" height="600" src="${site.image}" alt="${site.name}">
+                </a>
+            `;
+            list.appendChild(listItem);
+        });
+
+        // Add error card if no websites are found
+        if (data.websites.length === 0) {
+            const listItem = document.createElement("li");
+            listItem.classList.add("dashboard__error_card");
+            listItem.innerHTML = `
+                <div class="dashboard__card__container">
+                    <h2>No websites found</h2>
+                </div>
+            `;
+            list.appendChild(listItem);
+        }
+
+        // Re-append the "Add a site" card at the end
+        list.appendChild(addCard);
+    })
+    .catch(error => {
+        console.error("Error loading JSON:", error);
+        const list = document.querySelector(".dashboard__container");
+
+        const listItem = document.createElement("li");
+        listItem.classList.add("dashboard__error_card");
+        listItem.innerHTML = `
+            <div class="dashboard__card__container">
+                <h2>Something went wrong</h2>
+            </div>
+        `;
+        list.appendChild(listItem);
+    });
+
+           */
+</script>
+</html>
