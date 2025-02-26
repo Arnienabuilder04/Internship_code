@@ -1,3 +1,3 @@
 # Demo 5
-## Seperation of own API & client
+## Functionailty of removing image on server side and client side
 
