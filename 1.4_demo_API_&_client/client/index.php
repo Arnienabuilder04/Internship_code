@@ -71,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <?php endif; ?>
                 <li><a class="button button--empty" href="./pages/logout.php">Log Out</a></li>
             <?php else: ?>
-                
+                <p>Log in to continue</p>
             <?php endif; ?>
         </ul>
 
