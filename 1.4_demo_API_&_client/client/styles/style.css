@@ -3,7 +3,7 @@
     --color-body-light: rgb(31, 31, 31);
     --color-text: #f9f9f9;
     --color-detail: hsl(212deg, 100%, 50%);
-    --color-error: rgb(202, 47, 47);
+    --color-error: #e0451b;
 
     --text-body: 2.5vw;
 
@@ -83,6 +83,9 @@ a{
 /*Navigation*/
 
 nav{
+    z-index: 1;
+    position: sticky;
+    top: 0;
     background-color: var(--color-body-light);
     display: flex;
     align-items: center;

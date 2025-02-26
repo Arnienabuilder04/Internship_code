@@ -74,7 +74,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <p>Log in to continue</p>
             <?php endif; ?>
         </ul>
-
     </nav>
     <main>
         

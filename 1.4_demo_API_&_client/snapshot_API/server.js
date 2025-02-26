@@ -6,23 +6,20 @@ const path = require("path");
 const app = express();
 const PORT = 4000;
 
-// Middleware
 app.use(express.json());
 
-// Ensure the screenshots directory exists
 const screenshotDir = path.join(__dirname, "screenshots");
 if (!fs.existsSync(screenshotDir)) {
     fs.mkdirSync(screenshotDir, { recursive: true });
 }
 
-// API Route to Capture Screenshot
 app.get("/screenshot", async (req, res) => {
     const { url } = req.query;
 
     if (!url) {
         return res.status(400).json({ error: "Missing 'url' parameter" });
     }
-
+    
     try {
         const browser = await puppeteer.launch();
         const page = await browser.newPage();
@@ -30,7 +27,6 @@ app.get("/screenshot", async (req, res) => {
         await page.setViewport({ width: 1280, height: 720 });
         await page.goto(url, { waitUntil: "networkidle2" });
 
-        // Generate file name
         const domain = new URL(url).hostname.replace(/\./g, "_");
         const filename = `${domain}.png`;
         const filepath = path.join(screenshotDir, filename);
