@@ -72,6 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </nav>
     <main>
         
+
     <?php if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) : ?>
         <!-- Show Login Section if not logged in -->
         <section class="input__container">
