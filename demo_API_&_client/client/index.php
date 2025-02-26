@@ -2,7 +2,7 @@
 session_start();
 
 if (!isset($_SESSION['status'])) {
-    $_SESSION['status'] = false; // Initialize if not set
+    $_SESSION['status'] = false; 
 }
 
 // CSV fetch logic
@@ -26,10 +26,9 @@ function getWebsitesFromCSV($csvFile) {
 }
 
 $websites = getWebsitesFromCSV('./data/websites.csv');
-
-// Login logic
+//Login Logic
 $valid_username = "admin";
-$valid_password = "1234";
+$valid_password = "Test1234";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'] ?? '';
@@ -64,22 +63,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <nav>
         <img class="nav__image" src="./assets/logo.svg" alt="logo">
         <ul class="nav__links">
-            <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true && $_SESSION['status'] == false ): ?>
-                <li><a class="button button--red" href="./pages/remove.php">Remove a website</a></li>
+            <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true): ?>
+                <?php if ($_SESSION['status'] == false): ?>
+                    <li><a class="button button--red" href="./pages/remove.php">Remove a website</a></li>
+                <?php else: ?>
+                    <li><a class="button button--red" href="./pages/remove.php">Cancel</a></li>
+                <?php endif; ?>
                 <li><a class="button button--empty" href="./pages/logout.php">Log Out</a></li>
             <?php else: ?>
-                <li><a class="button button--red" href="./pages/remove.php">Cancel</a></li>
-                <li><a class="button button--empty" href="./pages/logout.php">Log Out</a></li>
+                
             <?php endif; ?>
         </ul>
+
     </nav>
     <main>
         
 
     <?php if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) : ?>
-        <!-- Show Login Section if not logged in -->
         <section class="input__container">
-            <?php if (isset($error)) echo "<p style='color: red;'>$error</p>"; ?>
             <form action="" method="post">
                 <label>Username:</label>
                 <input type="text" name="username" required>
@@ -87,14 +88,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <label>Password:</label>
                 <input type="password" name="password" required>
 
-                <button class="button button--full" type="submit">Login</button>
+                <div class="form_options">
+                    <button class="button button--full" type="submit">Log in</button>
+                </div>
             </form>
+            <div class="message__container">
+                <?php if (isset($error)): ?>
+                    <p class="message"><?= htmlspecialchars($error) ?></p>
+                <?php else: ?>
+                    <p class="message"></p>
+                <?php endif; ?>
+            </div>
         </section>
     <?php else : ?>
-        <!-- Show Content Section if logged in -->
         <section class="dashboard">
             <div class="dashboard__container">
-                <!-- if you want to remove -->
                 <?php if (isset($_SESSION['status']) && $_SESSION['status'] === true) : ?>
                     <?php foreach ($websites as $site): ?>
                             <div class="dashboard__card--remove">
@@ -112,7 +120,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             </div>
                         <?php endforeach; ?>
                 <?php else : ?>
-                    <!-- Show Websites List -->
                     <?php if (empty($websites)): ?>
                         <div class="dashboard__error_card">
                             <div class="dashboard__card__container">
